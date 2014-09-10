@@ -2,11 +2,21 @@
 #include <malloc.h>
 #define MAX 50
 
+struct Node {
+
+       int info;
+       struct Node *next;  
+};
+
+struct Node *head, *ind, *c;
+
 void readGraph(const char*);
 void displayMatrix();
 int connex();
 int have_degree();
 void dfs(int);
+int add();
+void cycle(struct Node *);
 
 int mat[MAX][MAX], visited[ MAX ];
 
@@ -14,6 +24,7 @@ int num_vertices, num_edges;
 
 FILE *fin, *fout;
 
+//main program
 int main() {
 
     readGraph("c:\\eulerian.in");
@@ -24,6 +35,17 @@ int main() {
           if( have_degree() ) {
 
              printf("OK"); 
+             head = (struct Node*)malloc(sizeof(struct Node));
+             head->info = 1;
+             head->next = 0; 
+             
+             while( add() );
+
+             c = head;
+             while( c ) {
+                   printf("%d ", c->info);
+                   c = c->next; 
+             }                
 
           } else {
 
@@ -39,6 +61,8 @@ int main() {
     return(0);
 };
 
+//@param filename from where we can read the graph onto matrix of adjacence
+//@return Void.
 void readGraph(const char *filename) {
 
      int i,j;
@@ -56,7 +80,11 @@ void readGraph(const char *filename) {
      fclose( fin );
 }
 
+//display the matrix adjacence for debug
+//@param void
+//@return void
 void displayMatrix() {
+
      int i,j;
 
      for(i=1;i<=num_vertices;i++) {
@@ -69,6 +97,7 @@ void displayMatrix() {
      } 
 }
 
+//chech if the graph is odd or not
 int have_degree() {
 
     int sum,i,j,not = 1;
@@ -89,6 +118,7 @@ int have_degree() {
     return not;
 }
 
+//check whether the graph is connex or not
 int connex() {
     int i;
 
@@ -103,6 +133,7 @@ int connex() {
     return 1;
 }
 
+//Depth First Search Traversal
 void dfs(int node) {
 
      int j;
@@ -120,3 +151,60 @@ void dfs(int node) {
          } 
      }  
 }
+
+int add() {
+
+    int node, i, found = 0;
+
+    struct Node *ind;
+
+    ind = head; 
+
+    while(ind && !found) {
+
+          for(i = 1; i <= num_vertices; i++) {
+
+              if(mat[ind->info][ i ] == 1) found = 1;
+          }
+
+          if( !found ) ind = ind->next;
+    } 
+ 
+
+    if( ind ) {
+
+       cycle( ind );
+
+       return 1;
+    } 
+
+    return 0;
+};
+
+void cycle(struct Node *p) {
+   
+     struct Node *newnode, *nextnode, *basenode;
+
+     int node;
+
+     basenode = p;
+     nextnode = p->next;  
+
+     do{
+     node = 1;
+     
+     while(mat[ basenode->info ][ node ] == 0) node++;
+ 
+     mat[basenode->info][ node ] = 0;
+     mat[ node ][ basenode->info ] = 0;
+
+     newnode = (struct Node*)malloc(sizeof(struct Node));
+     newnode->info = node;
+     newnode->next = NULL;
+
+     basenode->next = newnode;
+     basenode = newnode;
+     }while(newnode->info != p->info);
+
+     basenode->next = nextnode;
+};
