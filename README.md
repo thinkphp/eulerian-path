@@ -1,4 +1,4 @@
-Hamiltonian Path Problem
+Eulerian Path Problem
 ========================
 
   In the mathematical field of graph theory a Eulerian path is a trail in a graph which visits every edge exactly once. Similary
