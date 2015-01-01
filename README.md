@@ -10,6 +10,6 @@ Eulerian Path Problem
 
 ## References
 
-  http://en.wikipedia.org/wiki/Eulerian_path
-  http://www.geeksforgeeks.org/fleurys-algorithm-for-printing-eulerian-path/
+* http://en.wikipedia.org/wiki/Eulerian_path
+* http://www.geeksforgeeks.org/fleurys-algorithm-for-printing-eulerian-path/
   
