@@ -6,8 +6,10 @@ Eulerian Path Problem
   by Leonhard Euler while solving the famous Seven Bridges of Konigsberg problem in 1736.
    
 ![Screenshot](http://farm4.staticflickr.com/3854/15012848528_ca6041b596.jpg)
+![Screenshot](http://www.ctl.ua.edu/math103/euler/Image45.gif)
 
 ## References
 
   http://en.wikipedia.org/wiki/Eulerian_path
+  http://www.geeksforgeeks.org/fleurys-algorithm-for-printing-eulerian-path/
   
